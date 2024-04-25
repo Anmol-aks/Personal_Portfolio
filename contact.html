@@ -19,17 +19,28 @@
     </header>
 
     <div class="contact-form">
-        <form action="#" method="post">
+        <form action="#" method="post" id="formid">
             <label for="name">Your Name:</label>
             <input type="text" id="name" name="name" required>
 
             <label for="email">Your Email:</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+
+
+
+            <fieldset id="Services">
+                <legend>Select Services Required:</legend>
+                <label> <input type="checkbox" name="service" value="Spring Development">Spring Development</label><br>                
+                <label> <input type="checkbox" name="service" value="Database Management">Database Management</label><br>                
+                <label> <input type="checkbox" name="service" value="React Development">React Development</label><br>                
+                <label> <input type="checkbox" name="service" value="Data Analyst">Data Analyst</label><br>                
+            </fieldset>
 
             <label for="message">Your Message:</label>
-            <textarea id="message" name="message" rows="4" required></textarea>
+           <textarea id="textInput" rows="5" cols="50" oninput="handleInput()"></textarea>
+           <p>Character Count: <span id="charCount">0</span></p>
 
-            <button type="submit">Send Message</button>
+            <button type="button" onclick="showresult()">Send Message</button>
         </form>
     </div>
 
@@ -42,6 +53,56 @@
             <a href="https://github.com/Anmol-aks" target="_blank"><i class='bx bxl-github'></i></a>
         </p>
     </div>
+
+    <script>
+        function handleInput() {
+        var textInput = document.getElementById('textInput');
+        var charCountSpan = document.getElementById('charCount');
+        var charCount = textInput.value.length;
+        
+        charCountSpan.textContent = charCount;
+    }
+
+    function showresult() {
+    var selectedServices = document.querySelectorAll('input[name="service"]:checked');
+    var totalPrice = 0;
+
+    if (selectedServices.length > 0) {
+        selectedServices.forEach(function(service) {
+            switch (service.value) {
+                case "Spring Development":
+                    totalPrice += 900; 
+                    break;
+                case "Database Management":
+                    totalPrice += 300; 
+                    break;
+                case "React Development":
+                    totalPrice += 500; 
+                    break;
+                case "Data Analyst":
+                    totalPrice += 400; 
+                    break;
+            }
+        });
+        
+        var message = "Thank you for reaching out! ";
+        message += "The total price for the selected service(s) is $" + totalPrice + ".";
+        alert(message);
+    } else {
+        alert("Please select at least one service.");
+    }
+
+    document.getElementById("formid").reset();
+     document.getElementById('charCount').textContent = 0;
+}
+
+    </script>
+
+    <div class="go-back">
+    <a href="index.html">Go Back</a>
+</div>
+
+
 </body>
 
 </html>
